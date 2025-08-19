@@ -44,7 +44,7 @@
           li.innerText = item.title;
           li.onclick = () => {
             // เปิด reader.html พร้อมส่ง url pdf ไปด้วย
-            window.location.href = `reader.html?url=${encodeURIComponent(item.url)}&title=${encodeURIComponent(item.title)}`;
+            window.location.href = 'reader.html?url=${encodeURIComponent(item.url)}&title=${encodeURIComponent(item.title)}';
           };
           list.appendChild(li);
         });
@@ -56,3 +56,4 @@
   </script>
 </body>
 </html>
+
