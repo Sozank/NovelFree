@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>อ่านนิยายฟรี</title>
+  <style>
+    body {
+      background: #111;
+      color: #f0f0f0;
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    h1 { text-align: center; }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      padding: 10px 15px;
+      border: 1px solid #444;
+      margin-bottom: 10px;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    li:hover {
+      background: #222;
+    }
+  </style>
+</head>
+<body>
+  <h1>อ่านนิยายฟรี</h1>
+  <ul id="novelList"></ul>
+
+  <script>
+    // Your API URL ที่ได้จาก Google Apps Script
+    const apiUrl = "https://script.google.com/macros/s/AKfycbxsFgic8zf9QB9vBLGTk8Vams4UtKjwKckNGTwG-mPD2DRTKcNU-Azs_oaUof4KZaLKOA/exec";
+
+    fetch(apiUrl)
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById('novelList');
+        data.forEach(item => {
+          const li = document.createElement('li');
+          li.innerText = item.title;
+          li.onclick = () => {
+            // เปิด reader.html พร้อมส่ง url pdf ไปด้วย
+            window.location.href = `reader.html?url=${encodeURIComponent(item.url)}&title=${encodeURIComponent(item.title)}`;
+          };
+          list.appendChild(li);
+        });
+      })
+      .catch(err => {
+        document.getElementById('novelList').innerHTML = 'โหลดข้อมูลไม่สำเร็จ';
+        console.error(err);
+      });
+  </script>
+</body>
+</html>
